@@ -75,12 +75,14 @@ console.log(deal);
 
 var card = Math.floor(Math.random() * (52 - 1 + 1)) + 1; 
 
+
 // Function that returns a random card
 
 var deal = function() {
     var card = Math.floor(Math.random() * (52 - 1 + 1)) + 1;
     return card;
 }
+
 
 // Variables that call the deal function and get assigned a random card (cards still 1-52 at this point)
 
@@ -90,11 +92,20 @@ var card2 = deal();
 console.log(card1)
 console.log(card2)
 
-// Function that gets the value of each from 0-12 instead of 1-52.
+
+// Function that gets the value of each card from 0-12 instead of 1-52; if card is a face card (0,11,12), assigns 10 points, if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10).
 
 var getValue = function(card) {
-    return card % 13;
-}
+    if(card % 13 > 10 || card % 13 == 0) {
+    	return 10;
+    } else if(card % 13 == 1) {
+    	return 11;
+    } else {
+        return card % 13;
+    }
+};
+
+
 // Function that will assign points by adding up the cards (with new values of 0-12)
 
 var score = function() {
