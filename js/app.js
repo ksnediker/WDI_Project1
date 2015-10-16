@@ -29,31 +29,14 @@
 
 //======Blackjack Code=====
 
+// LOOK AT OGRE GAME FOR HOW TO MANAGE BETS AND CREATE AN ARRAY FOR CARDS
 
-// Function that returns a random card
 
+
+
+// Function that returns random cards. If card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
 var deal = function() {
     var card = Math.floor(Math.random() * (52 - 1 + 1)) + 1;
-    return card;
-}
-
-
-// Variables that call the deal function and get assigned a random card value of 1-52.
-//TRY TO TURN INTO AN ARRAY OR OBJECT
-
-var card1 = deal();
-var card2 = deal();
-var card3 = deal();
-var card4 = deal();
-var card5 = deal();
-
-// console.log(card1)
-// console.log(card2)
-
-
-// Function that gets the value of each card from 0-12 instead of 1-52; if card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
-
-var getValue = function(card) {
     if(card % 13 > 10 || card % 13 == 0) {
     	return 10;
     } else if(card % 13 == 1) {
@@ -62,59 +45,113 @@ var getValue = function(card) {
     } else {
         return card % 13;
     }
-};
-
-
-// Function that will assign points by adding up the cards (with new values of 0-12). TRY TO USE LOOP TO TRY TO CALCULATE THE SCORE OF AN INDEX OF CARDS
+}
 
 var score = function() {
-	if(card1 % 13 == 1 && card2 % 13 == 1) {
-		return getValue(card1) + 1;
+	var totalScore = playerHand[0];
+	if(playerHand[0] == 11 && playerHand[1] == 11) {
+		totalScore = totalScore + 1;
+		return totalScore;
 	} else {
-    return getValue(card1) + getValue(card2);
+		for (i=1; i<=cardCount; i++) {
+			totalScore = totalScore + playerHand[i];
+		}
+    	return totalScore;
 	}
 }
 
-console.log(getValue(card1));
-console.log(getValue(card2));
-console.log(score());
-alert("You were dealt a " + getValue(card1) + " and " + getValue(card2) + " your hand is " + (score()));
-
-
 // Function that determines winner if deal equals 21; tells player they bust if score is over 21; gives player the option to hit again if they have less than 21. 
-
 var nextMove = function () {
 	if(score() == 21) {
-		return "you win!";
+		gameOn = false;
 	} else if(score() > 21) {
-		return "you bust"
+		gameOn = false;
 	} else if(score() < 21) {
 		var input = confirm("hit 'ok' to hit or 'cancel' to stay");
 			if(input==true) {
-				return getValue(card3);
+				var nextCard = deal();
+				cardCount++;
+				playerHand[cardCount] = nextCard;	
+				alert("You were dealt a " + playerHand[cardCount] + " your hand is now " + (score()));
 			} else {
-				return score();
+				alert("Your stayed with " + score());
+				gameOn = false;
 			}
-	} else {}
+	}
 }
-nextMove();
-console.log(getValue(card3));
 
-// Function that gets score if player hit and received another card. WANT TO REPLACE WITH SCORE LOOP
-
-var score2 = function() {
-	return getValue(card1) + getValue(card2) + getValue(card3);
+var dealerTotal = function() {
+	var dealerScore = dealerHand[0];
+		if(dealerHand[0] == 11 && dealerHand[1] == 11) 
+		{
+			dealerScore = dealerScore + 1;
+			return dealerScore;
+		} 
+		else 
+		{
+			for (i=1; i<=dealerCardCount; i++) 
+			{
+			dealerScore = dealerScore + dealerHand[i];
+			}
+    	return dealerScore;
+		}
 }
-console.log(score2());
-alert("You were dealt a " + getValue(card3) + " your hand is now " + (score2()));
 
+// Function that will assign points by adding up the cards (with new values of 0-12). TRY TO USE LOOP TO TRY TO CALCULATE THE SCORE OF AN INDEX OF CARDS
 
+var player = {
+	dollars: 100
+};
 
+var playerHand = [deal(), deal()]; 
+var dealerHand = [deal(), deal()];
+var cardCount = 1;
+var dealerCardCount = 1;
 
+alert("You were dealt a " + playerHand[0] + " and " + playerHand[1] + ", your hand is " + (score()));
 
+//Running the game
+var gameOn = true;
+while(gameOn == true){
+	nextMove();
+	console.log(cardCount);
+}
 
+alert("Dealer was dealt a " + dealerHand[0] + " and " + dealerHand[1] + ", dealer's hand is " + dealerTotal());
 
+var dealerOn = true; 
+while(dealerTotal() < 17)
+{
+	var nextDealerCard = deal();
+	dealerCardCount++;
+	dealerHand[dealerCardCount] = nextDealerCard;	
+	alert("Dealer was dealt a " + dealerHand[dealerCardCount] + ", dealer's hand is now " + (dealerTotal()));
+}
 
+var playerFinal = score();
+var dealerFinal = dealerTotal();
+
+if(playerFinal == 21) {
+	alert("player wins");
+	player.dollars = player.dollars + 20;
+} else if(dealerFinal == 21) {
+	alert("dealer wins");
+	player.dollars = player.dollars - 10;
+} else if (dealerFinal > 21) {
+	alert("player wins");
+	player.dollars = player.dollars + 10;
+} else if (playerFinal > 21) {
+	alert("dealer wins");
+	player.dollars = player.dollars - 10;
+} else if(playerFinal > dealerFinal) {
+	alert("player wins");
+	player.dollars = player.dollars + 10;
+} else {
+	alert("dealer wins")
+	player.dollars = player.dollars - 10;
+}
+
+alert("Player has " + player.dollars + " dollars left.")
 
 //======Random thoughts and ideas=====
 
