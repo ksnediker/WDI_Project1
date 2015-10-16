@@ -21,7 +21,7 @@
 	height: 80%;
 	text-align: center;
 	border: solid black;
-	border-width: 3px;
+	border-width: 5px;
 	display: inline-block;
 	background: green;
 	margin-top: 15px;
@@ -42,7 +42,27 @@
 
 #hit-or-stay {
 	text-align: left;
-	margin-left: 120px;
+	margin-left: 130px;
+	margin-top: 10px;
+}
+
+#player-card-total {
+	height: 100px;
+	width: 150px;
+	background: white;
+	text-align: center;
+	border: solid black 2px;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+#dealer-card-total {
+	height: 100px;
+	width: 150px;
+	background: white;
+	text-align: center;
+	border: solid black 2px;
+	display: inline-block;
 	margin-top: 10px;
 }
 
@@ -70,7 +90,7 @@
 
 button {
 	font-size: 24px;
-	width: 150px;
+	width: 170px;
 	height: auto;
 }
 

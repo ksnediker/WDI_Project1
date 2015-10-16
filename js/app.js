@@ -1,38 +1,4 @@
-//===Game basics===
-
-// Player(s) vs. dealer
-// 52 card deck: 13 of each suit (2 through Ace)
-// Number cards are worth their number value; J,Q,K worth 10; Ace worth 11 unless player busts then it's 1
-
-
-// ===How to play===
-
-// 2 random cards dealt to player(s) and dealer
-// Sum inital two cards
-	// If cards sum to 21 - win
-// Players(s) stay if they are good with initial 2 cards
-// Player(s) hit if they want an additional card
-	// Sum all cards
-		// If sum > 21 - bust
-		// If sum = 21 - win
-		// if sum < 21 - give the option to hit again
-			//repeat steps
-
-
-// ====How to win===
-
-// Get 21 points on the player's first two cards (called a blackjack), without a dealer blackjack;
-// Reach a final score higher than the dealer without exceeding 21; or
-// Let the dealer draw additional cards until his or her hand exceeds 21.
-
-
-
 //======Blackjack Code=====
-
-// LOOK AT OGRE GAME FOR HOW TO MANAGE BETS AND CREATE AN ARRAY FOR CARDS
-
-
-
 
 // Function that returns random cards. If card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
 var deal = function() {
@@ -47,6 +13,7 @@ var deal = function() {
     }
 }
 
+// Function that caluculates the total value of player cards
 var score = function() {
 	var totalScore = playerHand[0];
 	if(playerHand[0] == 11 && playerHand[1] == 11) {
@@ -80,6 +47,7 @@ var nextMove = function () {
 	}
 }
 
+// Function that calculates the dealer's score
 var dealerTotal = function() {
 	var dealerScore = dealerHand[0];
 		if(dealerHand[0] == 11 && dealerHand[1] == 11) 
@@ -97,12 +65,12 @@ var dealerTotal = function() {
 		}
 }
 
-// Function that will assign points by adding up the cards (with new values of 0-12). TRY TO USE LOOP TO TRY TO CALCULATE THE SCORE OF AN INDEX OF CARDS
-
+// object that holds player's dollars
 var player = {
 	dollars: 100
 };
 
+// Arrays of cards for player and dealer and card count variables
 var playerHand = [deal(), deal()]; 
 var dealerHand = [deal(), deal()];
 var cardCount = 1;
@@ -110,7 +78,7 @@ var dealerCardCount = 1;
 
 alert("You were dealt a " + playerHand[0] + " and " + playerHand[1] + ", your hand is " + (score()));
 
-//Running the game
+// Running the game
 var gameOn = true;
 while(gameOn == true){
 	nextMove();
@@ -119,9 +87,9 @@ while(gameOn == true){
 
 alert("Dealer was dealt a " + dealerHand[0] + " and " + dealerHand[1] + ", dealer's hand is " + dealerTotal());
 
+// While loop that determines whether dealer hits or stays
 var dealerOn = true; 
-while(dealerTotal() < 17)
-{
+while(dealerTotal() < 17) {
 	var nextDealerCard = deal();
 	dealerCardCount++;
 	dealerHand[dealerCardCount] = nextDealerCard;	
@@ -131,6 +99,7 @@ while(dealerTotal() < 17)
 var playerFinal = score();
 var dealerFinal = dealerTotal();
 
+// Determines the winner
 if(playerFinal == 21) {
 	alert("player wins");
 	player.dollars = player.dollars + 20;
@@ -153,6 +122,35 @@ if(playerFinal == 21) {
 
 alert("Player has " + player.dollars + " dollars left.")
 
+
+//===Game basics===
+
+// Player(s) vs. dealer
+// 52 card deck: 13 of each suit (2 through Ace)
+// Number cards are worth their number value; J,Q,K worth 10; Ace worth 11 unless player busts then it's 1
+
+
+// ===How to play===
+
+// 2 random cards dealt to player(s) and dealer
+// Sum inital two cards
+	// If cards sum to 21 - win
+// Players(s) stay if they are good with initial 2 cards
+// Player(s) hit if they want an additional card
+	// Sum all cards
+		// If sum > 21 - bust
+		// If sum = 21 - win
+		// if sum < 21 - give the option to hit again
+			//repeat steps
+
+
+// ====How to win===
+
+// Get 21 points on the player's first two cards (called a blackjack), without a dealer blackjack;
+// Reach a final score higher than the dealer without exceeding 21; or
+// Let the dealer draw additional cards until his or her hand exceeds 21.
+
+
 //======Random thoughts and ideas=====
 
 // var obj = {
@@ -161,8 +159,6 @@ alert("Player has " + player.dollars + " dollars left.")
 // };
 
 // pop the last card out (ogres game)
-
-
 
 
 //=====OLD CODE=====
