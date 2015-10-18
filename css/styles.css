@@ -9,7 +9,7 @@
 
 #table {
 	width: 1200px;
-	height: 500px;
+	height: 600px;
 	background: green;
 	border: solid red;
 	margin: auto;
@@ -18,7 +18,7 @@
 
 #player-cards {
 	width: 45%;
-	height: 80%;
+	height: 70%;
 	text-align: center;
 	border: solid black;
 	border-width: 5px;
@@ -30,7 +30,7 @@
 
 #dealer-cards {
 	width: 45%;
-	height: 80%;
+	height: 70%;
 	text-align: center;
 	border: solid black;
 	border-width: 5px;
@@ -46,9 +46,9 @@
 	margin-top: 10px;
 }
 
-#player-card-total {
-	height: 100px;
-	width: 150px;
+#player-total-container{
+	height: 80px;
+	width: 130px;
 	background: white;
 	text-align: center;
 	border: solid black 2px;
@@ -56,14 +56,36 @@
 	margin-top: 10px;
 }
 
-#dealer-card-total {
-	height: 100px;
-	width: 150px;
+#dealer-total-container {
+	height: 80px;
+	width: 130px;
 	background: white;
 	text-align: center;
 	border: solid black 2px;
 	display: inline-block;
 	margin-top: 10px;
+}
+
+#player-card-total{
+	height: 60px;
+	width: 60px;
+	background: white;
+	text-align: center;
+	display: inline-block;
+	margin-top: 10px;
+	color: black;
+	font-size: 36px;
+}
+
+#dealer-card-total{
+	height: 60px;
+	width: 60px;
+	background: white;
+	text-align: center;
+	display: inline-block;
+	margin-top: 10px;
+	color: black;
+	font-size: 36px;
 }
 
 .player-hand {
