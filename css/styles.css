@@ -7,6 +7,17 @@
 	padding-bottom: 20px;
 }
 
+#dollars {
+	text-align: center;
+	font-size: 24px;
+	color: black;
+	border: solid black 2px;
+	width: 300px;
+	height: 100px;
+	margin-left: 200px;
+	margin-bottom: 20px;
+}
+
 #table {
 	width: 1200px;
 	height: 600px;
@@ -18,7 +29,7 @@
 
 #player-cards {
 	width: 45%;
-	height: 70%;
+	height: 80%;
 	text-align: center;
 	border: solid black;
 	border-width: 5px;
@@ -30,7 +41,7 @@
 
 #dealer-cards {
 	width: 45%;
-	height: 70%;
+	height: 80%;
 	text-align: center;
 	border: solid black;
 	border-width: 5px;
@@ -110,6 +121,30 @@
 	color: black;
 }
 
+#player-winner {
+	text-align: center;
+	width: 200px;
+	height: 80px;
+	display: inline-block;
+	color: red;
+	background: green;
+	margin-top: 20px;
+	font-size: 30px;
+	font-style: italic;
+}
+
+#dealer-winner {
+	text-align: center;
+	width: 200px;
+	height: 80px;
+	display: inline-block;
+	color: red;
+	background: green;
+	margin-top: 20px;
+	font-size: 30px;
+	font-style: italic;
+}
+
 button {
 	font-size: 24px;
 	width: 170px;
@@ -118,8 +153,10 @@ button {
 
 #hit {
 	margin-right: 20px;
+	margin-top: 20px;
 }
 
 #stay {
 	margin-left: 20px;
+	margin-top: 20px;
 }

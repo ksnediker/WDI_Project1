@@ -1,5 +1,12 @@
 //======Blackjack Code=====
 
+1. Add while loop for game
+2. Add click functions for 'hit' and 'stay'
+3. Make card values display in card divs 
+4. Make sum of cards show up after each deal
+5. Display player or dealer wins
+6. Display dollars player has left
+
 // Function that returns random cards. If card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
 $(function () {
 
