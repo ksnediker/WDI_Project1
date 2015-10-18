@@ -1,11 +1,11 @@
 //======Blackjack Code=====
 
-1. Add while loop for game
-2. Add click functions for 'hit' and 'stay'
-3. Make card values display in card divs 
-4. Make sum of cards show up after each deal
-5. Display player or dealer wins
-6. Display dollars player has left
+// 1. Add while loop for game
+// 2. Add click functions for 'hit' and 'stay'
+// 3. Make card values display in card divs 
+// 4. Make sum of cards show up after each deal
+// 5. Display player or dealer wins
+// 6. Display dollars player has left
 
 // Function that returns random cards. If card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
 $(function () {
@@ -56,6 +56,7 @@ var nextMove = function () {
 				cardCount++;
 				playerHand[cardCount] = nextCard;	
 				alert("You were dealt a " + playerHand[cardCount] + " your hand is now " + (score()));
+				$('#player-card-total').append(score());
 			} else {
 				alert("Your stayed with " + score());
 				gameOn = false;
@@ -91,22 +92,21 @@ var dealerCardCount = 1;
 
 $('#pcard1').append(playerHand[0]);
 $('#pcard2').append(playerHand[1]);
-$('#player-card-total').append(score());
+
+$('#dcard1').append(dealerHand[0]);
+$('#dcard2').append(dealerHand[1]);
+// $('#player-card-total').append(score());
 
 alert("You were dealt a " + playerHand[0] + " and " + playerHand[1] + ", your hand is " + (score()));
 
 // Running the game
 var gameOn = true;
 while(gameOn == true){
-	// nextMove();	
-	$('#hit').click(function(nextMove()) {
-		$('#player-cards .player-hand').append(playerHand[i]);
-	});
+	nextMove();	
+	// $('#hit').click(function(nextMove()) {
+	// 	$('#player-cards .player-hand').append(playerHand[i]);
+	// });
 }
-// $( "body" ).click(function( event ) {
-//   $( "#log" ).html( "clicked: " + event.target.nodeName );
-// });
-
 
 alert("Dealer was dealt a " + dealerHand[0] + " and " + dealerHand[1] + ", dealer's hand is " + dealerTotal());
 
