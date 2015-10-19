@@ -10,8 +10,8 @@
 #table {
 	width: 1200px;
 	height: 800px;
-	background: green;
-	border: solid red;
+	background: #194719;
+	border: solid #990000 5px;
 	margin: auto;
 	text-align: center;
 }
@@ -23,9 +23,10 @@
 	border: solid black;
 	border-width: 5px;
 	display: inline-block;
-	background: green;
+	background: #194719;
 	margin-top: 15px;
 	font-size: 36px;
+	color: white;
 }
 
 #dealer-cards {
@@ -35,9 +36,10 @@
 	border: solid black;
 	border-width: 5px;
 	display: inline-block;
-	background: green;
+	background: #194719;
 	margin-top: 15px;
 	font-size: 36px;
+	color: white;
 }
 
 #hit-or-stay {
@@ -116,7 +118,7 @@
 	height: 80px;
 	display: inline-block;
 	color: red;
-	background: green;
+	background: #194719;
 	margin-top: 50px;
 	font-size: 50px;
 	font-style: italic;
@@ -128,7 +130,7 @@
 	height: 80px;
 	display: inline-block;
 	color: red;
-	background: green;
+	background: #194719;
 	margin-top: 50px;
 	font-size: 50px;
 	font-style: italic;
