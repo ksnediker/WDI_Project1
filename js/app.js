@@ -1,20 +1,23 @@
 //======Blackjack Code=====
 
-// 1. Add while loop for game
+// 1. Add while loop for game (keep playing or cash out)
 // 2. Add click functions for 'hit' and 'stay'
 // 3. Make card values display in card divs 
 // 4. Make sum of cards show up after each deal
 // 5. Display player or dealer wins
 // 6. Display dollars player has left
+// download spectacle
+
+// Dealer
+// 1. append cards
+// 2. append total
+// 3. add dealerFinal = dealerscore into 
+
+// think through all winning possibilities
+// add cashout button
 
 // Function that returns random cards. If card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
 $(function () {
-
-// var $playersHand = $('.player-hand');
-var $dealersHand = $('.dealer-hand');
-// var $dealerCardTotal = $('#dealer-card-total');
-// var $playerCardTotal = $('#player-card-total'); 
-var $playerHit = $('#hit');
 
 var deal = function() {
     var card = Math.floor(Math.random() * (52 - 1 + 1)) + 1;
@@ -31,52 +34,124 @@ var deal = function() {
 // Function that caluculates the total value of player cards
 var score = function() {
 	var totalScore = playerHand[0];
-	for (i=1; i<=cardCount; i++) {
+	for (var i=1; i<=cardCount; i++) {
 		if(playerHand[0] == 11 && playerHand[1] == 11) {
 			totalScore = totalScore + 1;
 			totalScore = totalScore + playerHand[i];
 		return totalScore;
 		} else {
 			totalScore = totalScore + playerHand[i];
-			
 		}
-	} return totalScore;
+	} 
+	playerFinal = totalScore;
+	$('#player-card-total').empty()
+	$('#player-card-total').append(totalScore);
+	return totalScore;
+}
+// var blackJack = function () {
+// 	if(playerFinal == 21)
+// 	$('#player-winner').html("player wins");
+// 	gameOn = false;
+// 	player.dollars = player.dollars + 20;
+// }
+
+var gameWinner = function () {
+	playerFinal = score();
+	dealerFinal = dealerTotal();
+if(playerFinal == 21) {
+	$('#player-winner').html("player wins");
+	gameOn = false;
+	player.dollars = player.dollars + 20;
+} else if(playerFinal > dealerFinal && playerFinal < 21 ) {
+	$('#player-winner').html("player wins");
+	gameOn = false;
+	player.dollars = player.dollars + 10;	
+} else if(dealerFinal > 21) {
+	$('#player-winner').html("player wins");
+	gameOn = false;
+	player.dollars = player.dollars + 10;		
+} else if(dealerFinal == 21) {
+	$('#dealer-winner').html("dealer wins");
+	player.dollars = player.dollars - 10;
+	gameOn = false;
+} else if(playerFinal==dealerFinal) {
+	alert("draw");
+	gameOn = false;
+} else {
+	$('#dealer-winner').html("dealer wins");
+	player.dollars = player.dollars - 10;
+	gameOn = false;
+}
+
+// alert("Player has " + player.dollars + " dollars left.")
 }
 
 // Function that determines winner if deal equals 21; tells player they bust if score is over 21; gives player the option to hit again if they have less than 21. 
 var nextMove = function () {
 	if(score() == 21) {
 		gameOn = false;
+		gameWinner();
 	} else if(score() > 21) {
 		gameOn = false;
 	} else if(score() < 21) {
-		var input = confirm("hit 'ok' to hit or 'cancel' to stay");
-			if(input==true) {
+		gameOn = false;
+		var $playerHitOrStay = $('#hit-or-stay');
+		$playerHitOrStay.click(function(event) {
+			gameOn = true;
+			if(event.target.id=='hit') {
 				var nextCard = deal();
 				cardCount++;
-				playerHand[cardCount] = nextCard;	
-				alert("You were dealt a " + playerHand[cardCount] + " your hand is now " + (score()));
-				$('#player-card-total').append(score());
-			} else {
-				alert("Your stayed with " + score());
+				playerHand[cardCount] = nextCard;
+				var currentCssId = cardCount + 1
+				$('#pcard' + currentCssId).append(playerHand[cardCount]);	
+				// alert("You were dealt a " + playerHand[cardCount] + " your hand is now " + (score()))
+				gameWinner();
+					if(dealerTotal() < 17) {
+						var nextDealerCard = deal();
+						dealerCardCount++;
+						dealerHand[dealerCardCount] = nextDealerCard;
+						var currentDCssId = dealerCardCount + 1
+						$('#dcard' + currentDCssId).append(dealerHand[dealerCardCount]);	
+						// alert("Dealer was dealt a " + dealerHand[dealerCardCount] + ", dealer's hand is now " + (dealerTotal()));
+						gameWinner();
+					}
+				$('#dealer-card-total').append(dealerTotal());
+			} else if(event.target.id=='stay') {
+				// alert("You stayed with " + score());
+				gameWinner();
 				gameOn = false;
+					if(dealerTotal() < 17) {
+						var nextDealerCard = deal();
+						dealerCardCount++;
+						dealerHand[dealerCardCount] = nextDealerCard;
+						var currentDCssId = dealerCardCount + 1
+						$('#dcard' + currentDCssId).append(dealerHand[dealerCardCount]);
+						// alert("Dealer was dealt a " + dealerHand[dealerCardCount] + ", dealer's hand is now " + (dealerTotal()));
+						gameWinner();
+					} else if(dealerTotal() >= 17) {
+						gameOn = false;
+					}
 			}
+		});
 	}
 }
 
 // Function that calculates the dealer's score
 var dealerTotal = function() {
 	var dealerScore = dealerHand[0];
-		if(dealerHand[0] == 11 && dealerHand[1] == 11) 
-		{
+		if(dealerHand[0] == 11 && dealerHand[1] == 11) {
 			dealerScore = dealerScore + 1;
 			dealerScore = dealerScore + dealerHand[i];
 			return dealerScore;
 		} else {
 			for (i=1; i<=dealerCardCount; i++) {
-			dealerScore = dealerScore + dealerHand[i];
-		} return dealerScore;
+				dealerScore = dealerScore + dealerHand[i];
 		}
+	} 
+	dealerFinal = dealerScore;
+	$('#dealer-card-total').empty()
+	$('#dealer-card-total').append(dealerScore);
+	return dealerScore;
 }
 
 // object that holds player's dollars
@@ -97,54 +172,25 @@ $('#dcard1').append(dealerHand[0]);
 $('#dcard2').append(dealerHand[1]);
 // $('#player-card-total').append(score());
 
-alert("You were dealt a " + playerHand[0] + " and " + playerHand[1] + ", your hand is " + (score()));
+// alert("You were dealt a " + playerHand[0] + " and " + playerHand[1] + ", your hand is " + (score()));
 
 // Running the game
 var gameOn = true;
-while(gameOn == true){
-	nextMove();	
-	// $('#hit').click(function(nextMove()) {
-	// 	$('#player-cards .player-hand').append(playerHand[i]);
-	// });
+while(gameOn == true) {
+		nextMove();	
 }
 
-alert("Dealer was dealt a " + dealerHand[0] + " and " + dealerHand[1] + ", dealer's hand is " + dealerTotal());
+// alert("Dealer was dealt a " + dealerHand[0] + " and " + dealerHand[1] + ", dealer's hand is " + dealerTotal());
 
 // While loop that determines whether dealer hits or stays
-var dealerOn = true; 
-while(dealerTotal() < 17) {
-	var nextDealerCard = deal();
-	dealerCardCount++;
-	dealerHand[dealerCardCount] = nextDealerCard;	
-	alert("Dealer was dealt a " + dealerHand[dealerCardCount] + ", dealer's hand is now " + (dealerTotal()));
-}
-$('#dealer-card-total').append(dealerTotal());
+// var dealerOn = true; 
+// while(dealerTotal() < 17) {
 
-var playerFinal = score();
-var dealerFinal = dealerTotal();
+// var playerFinal = score();
+// var dealerFinal = dealerTotal();
 
 // Determines the winner
-if(playerFinal == 21) {
-	alert("player wins");
-	player.dollars = player.dollars + 20;
-} else if(dealerFinal == 21) {
-	alert("dealer wins");
-	player.dollars = player.dollars - 10;
-} else if (dealerFinal > 21) {
-	alert("player wins");
-	player.dollars = player.dollars + 10;
-} else if (playerFinal > 21) {
-	alert("dealer wins");
-	player.dollars = player.dollars - 10;
-} else if(playerFinal >= dealerFinal) {
-	alert("player wins");
-	player.dollars = player.dollars + 10;
-} else {
-	alert("dealer wins")
-	player.dollars = player.dollars - 10;
-}
 
-alert("Player has " + player.dollars + " dollars left.")
 
 });
 
@@ -241,4 +287,5 @@ var body = document.querySelector('body');
 // }
 
 // hitOrStay();
+
 
