@@ -1,21 +1,5 @@
 //======Blackjack Code=====
 
-// 1. Add while loop for game (keep playing or cash out)
-// 2. Add click functions for 'hit' and 'stay'
-// 3. Make card values display in card divs 
-// 4. Make sum of cards show up after each deal
-// 5. Display player or dealer wins
-// 6. Display dollars player has left
-// download spectacle
-
-// Dealer
-// 1. append cards
-// 2. append total
-// 3. add dealerFinal = dealerscore into 
-
-// think through all winning possibilities
-// add cashout button
-
 // Function that returns random cards. If card is a face card (0,11,12), assigns 10 points; if card is ace (1), assigns 11 points; all ofther cards are assigned modulo value (2-10). 
 $(function () {
 
@@ -48,13 +32,9 @@ var score = function() {
 	$('#player-card-total').append(totalScore);
 	return totalScore;
 }
-// var blackJack = function () {
-// 	if(playerFinal == 21)
-// 	$('#player-winner').html("player wins");
-// 	gameOn = false;
-// 	player.dollars = player.dollars + 20;
-// }
 
+
+// Function that determines winner
 var gameWinner = function () {
 	playerFinal = score();
 	dealerFinal = dealerTotal();
@@ -86,7 +66,7 @@ if(playerFinal == 21) {
 // alert("Player has " + player.dollars + " dollars left.")
 }
 
-// Function that determines winner if deal equals 21; tells player they bust if score is over 21; gives player the option to hit again if they have less than 21. 
+// Function that determines if player gets blackjack, busts, or has the option to hit; automatically hits the dealer if they have under 17. Also appends cards to HTML
 var nextMove = function () {
 	if(score() == 21) {
 		gameOn = false;
@@ -170,7 +150,6 @@ $('#pcard2').append(playerHand[1]);
 
 $('#dcard1').append(dealerHand[0]);
 $('#dcard2').append(dealerHand[1]);
-// $('#player-card-total').append(score());
 
 // alert("You were dealt a " + playerHand[0] + " and " + playerHand[1] + ", your hand is " + (score()));
 
@@ -182,19 +161,8 @@ while(gameOn == true) {
 
 // alert("Dealer was dealt a " + dealerHand[0] + " and " + dealerHand[1] + ", dealer's hand is " + dealerTotal());
 
-// While loop that determines whether dealer hits or stays
-// var dealerOn = true; 
-// while(dealerTotal() < 17) {
-
-// var playerFinal = score();
-// var dealerFinal = dealerTotal();
-
-// Determines the winner
-
-
 });
 
-var body = document.querySelector('body');
 
 
 //===Game basics===
